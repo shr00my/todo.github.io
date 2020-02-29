@@ -1,0 +1,17 @@
+<form class="form-inline" (ngSubmit)="onSubmit()">
+  <input
+    class="form-control mr-sm-2"
+    type="text"
+    [(ngModel)]="content"
+    name="content"
+    placeholder="Add todo..."
+    aria-label="Add todo..."
+  />
+  <button
+    class="btn btn-primary my-2 my-sm-0"
+    type="submit"
+    [disabled]="!this.content"
+  >
+    Add
+  </button>
+</form>

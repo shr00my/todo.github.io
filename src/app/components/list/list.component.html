@@ -1,0 +1,55 @@
+<div class="container-md">
+  <div *ngIf="loaded && todos.length > 0">
+    <div class="card m-3 text-center" *ngFor="let todo of todos">
+      <div class="card-body">
+        <label class="status-content" *ngIf="!todo.editing">
+          <input
+            type="checkbox"
+            name="check"
+            [(ngModel)]="todo.completed"
+            (click)="onStatusChange(todo)"
+          />
+          <span [ngClass]="{ completed: todo.completed }">
+            {{ todo.content }}</span
+          >
+        </label>
+        <div class="icons">
+          <i
+            class="fa fa-edit"
+            *ngIf="!todo.editing; else editingTodo"
+            (click)="editTodo(todo)"
+          ></i>
+
+          <i class="fa fa-remove" (click)="onDelete(todo)"></i>
+        </div>
+        <ng-template #editingTodo>
+          <input
+            type="text"
+            [(ngModel)]="todo.content"
+            autofocus
+            (blur)="doneEditing(todo)"
+          />
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="todos-length">
+      <span *ngIf="!allComplete">
+        <input type="checkbox" name="all" (click)="allCompleted(todos)" />
+        Complete all</span
+      >
+
+      <span *ngIf="atLeastOneCompleted()">
+        <input type="checkbox" name="all" (click)="clearCompleted(todos)" />
+        Clear completed</span
+      >
+
+      <span>{{ remainingTasks() }} tasks left</span>
+    </div>
+  </div>
+
+  <div class="container-md" *ngIf="todos.length == 0">
+    <h5>ADD IMAGE WITH TEXT THAT YOU HAVE NO TODOS YET</h5>
+  </div>
+  <div class="container-md" *ngIf="!loaded">ADD LOADING ANIMATION</div>
+</div>
